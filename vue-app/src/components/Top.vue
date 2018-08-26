@@ -7,6 +7,10 @@
     <span>password：</span>
     <input v-model="pass" placeholder="edit me">
     <button @click="create_kanji()">create_kanji</button>
+  <h2>スケジュール調整作成</h2>
+    <span>タイトル：</span>
+    <input v-model="title" placeholder="edit me">
+    <button @click="create_event()">create_event</button>
   <h2>参加する</h2>
       <span>イベントID：</span>
       <input type="text" v-model="event_id">
@@ -28,7 +32,8 @@ export default {
       pass: "",
       event_id: "",
       user_id: "",
-      password: ""
+      password: "",
+      title: "",
     }
   },
   methods: {
@@ -43,6 +48,19 @@ export default {
           console.log('送信したテキスト: ' + response.data.id);
           var id = response.data.id
           this.$router.push({ name: 'Kanji', params: { id }})
+        }).catch(error => {
+          console.log(error);
+        });
+    },
+    create_event () {
+      let params = new URLSearchParams();
+      var title = this.title
+      params.append('event[title]', title);
+      axios.post('http://localhost:3000/events', params)
+        .then(response => {
+          console.log('送信したテキスト: ' + response.data.url);
+          var url = response.data.url
+          this.$router.push({ name: 'Event', params: { url }})
         }).catch(error => {
           console.log(error);
         });

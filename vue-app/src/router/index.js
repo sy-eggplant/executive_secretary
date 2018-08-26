@@ -4,6 +4,7 @@ import HelloWorld from '@/components/HelloWorld'
 import Top from '@/components/Top'
 import Kanjis from '@/components/Kanjis'
 import Kanji from '@/components/Kanji'
+import Event from '@/components/Event'
 
 Vue.use(Router)
 
@@ -23,6 +24,11 @@ export default new Router({
       path: '/kanjis',
       name: 'Kanjis',
       component: Kanjis
+    },
+    {
+      path: '/event/:url',
+      name: 'Event',
+      component: Event
     },
     {       
       path: '/kanji/:name',

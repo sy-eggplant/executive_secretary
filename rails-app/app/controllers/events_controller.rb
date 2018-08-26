@@ -13,11 +13,21 @@ class EventsController < ApplicationController
     render json: @event
   end
 
+  # GET /events/url
+  def show_url
+    url = params[:url]
+    @event = Event.find_by(url: url)
+    render json: @event
+  end
+
   # POST /events
   def create
-    @event = Event.new(event_params)
-
+    e_params = params.require(:event).permit(:title)
+    @event = Event.new(e_params)  
     if @event.save
+      origin = @event.id.to_s + @event.created_at.to_s
+      url = Digest::MD5.new.update(origin).to_s
+      @event.update_attribute(:url, url)
       render json: @event, status: :created, location: @event
     else
       render json: @event.errors, status: :unprocessable_entity
