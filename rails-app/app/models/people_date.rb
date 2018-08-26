@@ -1,0 +1,2 @@
+class PeopleDate < ApplicationRecord
+end
