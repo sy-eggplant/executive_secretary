@@ -36,7 +36,9 @@ class EventsController < ApplicationController
 
   # PATCH/PUT /events/1
   def update
-    if @event.update(event_params)
+    e_params = params.require(:event).permit(:title, :pass, :place, :memo, :total_fee, :dead_line, :attend_flg, :is_complete, :is_edit, :test)
+    debugger
+    if @event.update(e_params)
       render json: @event
     else
       render json: @event.errors, status: :unprocessable_entity

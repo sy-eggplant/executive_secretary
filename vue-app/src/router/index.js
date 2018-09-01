@@ -5,6 +5,7 @@ import Top from '@/components/Top'
 import Kanjis from '@/components/Kanjis'
 import Kanji from '@/components/Kanji'
 import Event from '@/components/Event'
+import EventEdit from '@/components/EventEdit'
 
 Vue.use(Router)
 
@@ -29,6 +30,11 @@ export default new Router({
       path: '/event/:url',
       name: 'Event',
       component: Event
+    },
+    {
+      path: '/event_edit/:url',
+      name: 'EventEdit',
+      component: EventEdit
     },
     {       
       path: '/kanji/:name',
