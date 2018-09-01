@@ -54,7 +54,7 @@ export default {
       pass: "",
       event_id: "",
       user_id: "",
-      password: "",
+      pass: "",
       title: "",
       datetime: "",
       place: "",
@@ -74,7 +74,17 @@ export default {
   mounted: function () {
     axios
       .get('http://localhost:3000/event_show/'+this.$route.params.url)
-      .then(response => (this.msg = response.data))
+      .then(response => {
+      this.msg = response.data
+      this.title=this.msg.title
+      this.pass=this.msg.pass
+      this.place=this.msg.place
+      this.memo=this.msg.memo
+      this.datetime=this.msg.dead_line
+      this.total_fee=this.msg.total_fee
+
+      })
+     
     },
   methods: {
     save () {
