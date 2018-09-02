@@ -37,7 +37,6 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1
   def update
     e_params = params.require(:event).permit(:title, :pass, :place, :memo, :total_fee, :dead_line, :attend_flg, :is_complete, :is_edit)
-    debugger
     if @event.update(e_params)
       render json: @event
     else

@@ -82,13 +82,16 @@ export default {
       this.memo=this.msg.memo
       this.datetime=this.msg.dead_line
       this.total_fee=this.msg.total_fee
+      this.test_dates= ["2018-01-02","1000-01-01"
 
+      ]
       })
      
     },
   methods: {
     save () {
       let params = new URLSearchParams();
+      let params2 = new URLSearchParams();
       var title = this.title
       var pass = this.pass
       var msg = this.$data.msg
@@ -111,10 +114,19 @@ export default {
       params.append('event[attend_flg]', checked_1);
       params.append('event[is_complete]', checked_2);
       params.append('event[is_edit]', checked_3)
-      params.append('event[test]', test_dates)
+      params2.append('candidate[day]', test_dates)
+      params2.append('candidate[event_id]', msg.id)
 
+
+      var u2 = 'http://localhost:3000/candidates'
       var u = 'http://localhost:3000/events/'+msg.id
 
+      axios.post('http://localhost:3000/candidates', params2)
+        .then(response => {
+          var url = response.data.url
+        }).catch(error => {
+          console.log(error);
+        });
       axios.patch(u, params)
         .then(response => {
           var url = response.data.url

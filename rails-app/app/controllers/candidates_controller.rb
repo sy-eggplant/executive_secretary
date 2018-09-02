@@ -15,13 +15,21 @@ class CandidatesController < ApplicationController
 
   # POST /candidates
   def create
-    @candidate = Candidate.new(candidate_params)
+    candidate_params = params.require(:candidate).permit(:day, :event_id)
+    days = candidate_params[:day].split(",")
+    event_id = candidate_params[:event_id]
 
+    days.each{|day|
+
+    @candidate = Candidate.new
+    @candidate.day = day
+    @candidate.event_id = event_id
     if @candidate.save
       render json: @candidate, status: :created, location: @candidate
     else
       render json: @candidate.errors, status: :unprocessable_entity
     end
+    }
   end
 
   # PATCH/PUT /candidates/1
